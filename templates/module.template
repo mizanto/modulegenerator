@@ -1,0 +1,15 @@
+import Foundation
+
+class %{module_name}: Module {
+
+  init() {
+      let creation: (Module) -> %{view_controller_name} = {
+          _ in
+
+          return %{view_controller_name}()
+      }
+
+      super.init(logic: %{logic_name}(), viewProvider: creation)
+  }
+
+}

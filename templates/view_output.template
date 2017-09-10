@@ -1,0 +1,6 @@
+
+import Foundation
+
+protocol %{view_output_name}: class {
+
+}
