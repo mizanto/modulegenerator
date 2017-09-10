@@ -88,10 +88,18 @@ def path_for_template(template_name)
 end
 
 def path_for_result(name)
-  return "#{RESULTS_FOLDER}/#{file_name_from_class(name)}"
+  return "#{RESULTS_FOLDER}/#{MODULE_NAME}/#{file_name_from_class(name)}"
+end
+
+def setup_folders
+  Dir.mkdir(RESULTS_FOLDER) unless Dir.exist?(RESULTS_FOLDER)
+  current_module_folder = RESULTS_FOLDER + "/" + MODULE_NAME
+  Dir.mkdir(current_module_folder) unless Dir.exist?(current_module_folder)
 end
 
 def generate_module(name, path = "")
+  setup_folders()
+
   create_component(name, TYPE_MODULE)
   create_component(name, TYPE_VIEW_CONTROLLER)
   create_component(name, TYPE_LOGIC)
