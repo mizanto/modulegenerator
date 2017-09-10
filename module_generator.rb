@@ -3,6 +3,7 @@ AUTHOR = "Sergey Bendak"
 COMPANY = "Home"
 TEMPLATES_FOLDER = "templates"
 RESULTS_FOLDER = "results"
+MODULE_NAME = "Test"
 
 ####### don't change code below #########
 
@@ -120,4 +121,4 @@ def create_component(name, type)
   File.open(path_for_result(name + type), "w+") { |f| f.write(template) }
 end
 
-generate_module("Test")
+generate_module(MODULE_NAME)
