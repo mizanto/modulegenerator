@@ -16,13 +16,16 @@ TYPE_VIEW_OUTPUT = "ViewOutput"
 
 
 def header(name = "_____", created = "_created_")
+  created = Time.now.strftime("%d/%m/%Y")
+  year = Time.now.strftime("%Y")
   file_name = file_name_from_class(name)
   header_template = IO.read(path_for_template("header")) % {
     :file_name => file_name,
     :project_name => PROJECT_NAME,
     :author => AUTHOR,
     :created => created,
-    :company => COMPANY
+    :company => COMPANY,
+    :year => year
   }
   header_template += "\n"
 end
