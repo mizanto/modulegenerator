@@ -15,7 +15,41 @@ TYPE_VIEW_INPUT = "ViewInput"
 TYPE_VIEW_OUTPUT = "ViewOutput"
 
 
-def header(name = "_____", created = "_created_")
+def generate_module(name, path = "")
+  setup_folders()
+
+  create_component(name, TYPE_MODULE)
+  create_component(name, TYPE_VIEW_CONTROLLER)
+  create_component(name, TYPE_LOGIC)
+  create_component(name, TYPE_VIEW_INPUT)
+  create_component(name, TYPE_VIEW_OUTPUT)
+  puts "succsses!"
+end
+
+# types:
+# TYPE_MODULE, TYPE_VIEW_CONTROLLER, TYPE_LOGIC, TYPE_VIEW_INPUT, TYPE_VIEW_OUTPUT
+def create_component(name, type)
+  template = "...ERROR..."
+  if type == TYPE_MODULE
+    template = module_content(name)
+  elsif type == TYPE_VIEW_CONTROLLER
+    template = view_controller_content(name)
+  elsif type == TYPE_LOGIC
+    template = logic_content(name)
+  elsif type == TYPE_VIEW_INPUT
+    template = view_input_content(name)
+  elsif type == TYPE_VIEW_OUTPUT
+    template = view_output_content(name)
+  else
+    raise "Error: Unknown type (#{type})!"
+  end
+
+  File.open(path_for_result(name + type), "w+") { |f| f.write(template) }
+end
+
+# templates
+
+def header(name = "_____")
   created = Time.now.strftime("%d/%m/%Y")
   year = Time.now.strftime("%Y")
   file_name = file_name_from_class(name)
@@ -58,7 +92,6 @@ def logic_content(name)
     :view_input_name => name + "ViewInput",
     :module_name => name + "Module"
   }
-
   logic_template = header(logic_name) + code
 end
 
@@ -68,7 +101,6 @@ def view_input_content(name)
   code = IO.read(path_for_template("view_input")) % {
     :view_input_name => view_input_name
   }
-
   view_input_template = header(view_input_name) + code
 end
 
@@ -78,9 +110,10 @@ def view_output_content(name)
   code = IO.read(path_for_template("view_output")) % {
     :view_output_name => view_output_name
   }
-
   view_output_template = header(view_output_name) + code
 end
+
+# utils
 
 def file_name_from_class(name)
   return name + ".swift"
@@ -100,36 +133,5 @@ def setup_folders
   Dir.mkdir(current_module_folder) unless Dir.exist?(current_module_folder)
 end
 
-def generate_module(name, path = "")
-  setup_folders()
-
-  create_component(name, TYPE_MODULE)
-  create_component(name, TYPE_VIEW_CONTROLLER)
-  create_component(name, TYPE_LOGIC)
-  create_component(name, TYPE_VIEW_INPUT)
-  create_component(name, TYPE_VIEW_OUTPUT)
-  puts "succsses!"
-end
-
-# types:
-# TYPE_MODULE, TYPE_VIEW_CONTROLLER, TYPE_LOGIC, TYPE_VIEW_INPUT, TYPE_VIEW_OUTPUT
-def create_component(name, type)
-  template = "...ERROR..."
-  if type == TYPE_MODULE
-    template = module_content(name)
-  elsif type == TYPE_VIEW_CONTROLLER
-    template = view_controller_content(name)
-  elsif type == TYPE_LOGIC
-    template = logic_content(name)
-  elsif type == TYPE_VIEW_INPUT
-    template = view_input_content(name)
-  elsif type == TYPE_VIEW_OUTPUT
-    template = view_output_content(name)
-  else
-    raise "Error: Unknown type (#{type})!"
-  end
-
-  File.open(path_for_result(name + type), "w+") { |f| f.write(template) }
-end
 
 generate_module(MODULE_NAME)
