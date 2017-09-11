@@ -1,9 +1,11 @@
+#!/usr/bin/env ruby
+
 PROJECT_NAME = "TestProject"
 AUTHOR = "Sergey Bendak"
 COMPANY = "Home"
 TEMPLATES_FOLDER = "templates"
 RESULTS_FOLDER = "results"
-MODULE_NAME = "Test"
+
 
 ####### don't change code below #########
 
@@ -15,7 +17,7 @@ TYPE_VIEW_INPUT = "ViewInput"
 TYPE_VIEW_OUTPUT = "ViewOutput"
 
 
-def generate_module(name, path = "")
+def generate_module(name)
   setup_folders()
 
   create_component(name, TYPE_MODULE)
@@ -124,14 +126,24 @@ def path_for_template(template_name)
 end
 
 def path_for_result(name)
-  return "#{RESULTS_FOLDER}/#{MODULE_NAME}/#{file_name_from_class(name)}"
+  return "#{RESULTS_FOLDER}/#{get_module_name}/#{file_name_from_class(name)}"
 end
 
 def setup_folders
   Dir.mkdir(RESULTS_FOLDER) unless Dir.exist?(RESULTS_FOLDER)
-  current_module_folder = RESULTS_FOLDER + "/" + MODULE_NAME
+  current_module_folder = RESULTS_FOLDER + "/" + get_module_name()
   Dir.mkdir(current_module_folder) unless Dir.exist?(current_module_folder)
 end
 
+def get_module_name()
+  name = ARGV[0].to_s
 
-generate_module(MODULE_NAME)
+  if name.length < 1
+    raise "Error: Empty module name!"
+  end
+
+  return name
+end
+
+module_name = get_module_name()
+generate_module(module_name)
