@@ -1,11 +1,9 @@
 #!/usr/bin/env ruby
 
-PROJECT_NAME = "TestProject"
-AUTHOR = "Sergey Bendak"
-COMPANY = "Home"
+load "configuration.rb"
+
 TEMPLATES_FOLDER = "templates"
 RESULTS_FOLDER = "results"
-
 
 ####### don't change code below #########
 
