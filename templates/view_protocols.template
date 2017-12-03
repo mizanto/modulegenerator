@@ -1,0 +1,14 @@
+
+import Foundation
+
+protocol %{view_input_name}: class {
+
+}
+
+protocol %{view_output_name}: class {
+
+}
+
+protocol %{view_data_source_name}: class {
+
+}

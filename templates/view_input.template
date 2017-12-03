@@ -1,6 +1,0 @@
-
-import Foundation
-
-protocol %{view_input_name}: class {
-
-}

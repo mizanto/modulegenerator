@@ -13,8 +13,7 @@ RESULTS_FOLDER = "results"
 TYPE_MODULE = "Module"
 TYPE_VIEW_CONTROLLER = "ViewController"
 TYPE_LOGIC = "Logic"
-TYPE_VIEW_INPUT = "ViewInput"
-TYPE_VIEW_OUTPUT = "ViewOutput"
+TYPE_VIEW_PROTOCOLS = "ViewProtocols"
 
 
 def generate_module(name)
@@ -23,8 +22,7 @@ def generate_module(name)
   create_component(name, TYPE_MODULE)
   create_component(name, TYPE_VIEW_CONTROLLER)
   create_component(name, TYPE_LOGIC)
-  create_component(name, TYPE_VIEW_INPUT)
-  create_component(name, TYPE_VIEW_OUTPUT)
+  create_component(name, TYPE_VIEW_PROTOCOLS)
   puts "succsses!"
 end
 
@@ -32,16 +30,16 @@ end
 # TYPE_MODULE, TYPE_VIEW_CONTROLLER, TYPE_LOGIC, TYPE_VIEW_INPUT, TYPE_VIEW_OUTPUT
 def create_component(name, type)
   template = "...ERROR..."
-  if type == TYPE_MODULE
+
+  case type
+  when TYPE_MODULE
     template = module_content(name)
-  elsif type == TYPE_VIEW_CONTROLLER
+  when TYPE_VIEW_CONTROLLER
     template = view_controller_content(name)
-  elsif type == TYPE_LOGIC
+  when TYPE_LOGIC
     template = logic_content(name)
-  elsif type == TYPE_VIEW_INPUT
-    template = view_input_content(name)
-  elsif type == TYPE_VIEW_OUTPUT
-    template = view_output_content(name)
+  when TYPE_VIEW_PROTOCOLS
+    template = view_protocols_content(name)
   else
     raise "Error: Unknown type (#{type})!"
   end
@@ -97,22 +95,15 @@ def logic_content(name)
   logic_template = header(logic_name) + code
 end
 
-def view_input_content(name)
-  view_input_name = name + "ViewInput"
+def view_protocols_content(name)
+  view_protocols_name = name + "ViewProtocols"
 
-  code = IO.read(path_for_template("view_input")) % {
-    :view_input_name => view_input_name
+  code = IO.read(path_for_template("view_protocols")) % {
+    :view_input_name => name + "ViewInput",
+    :view_output_name => name + "ViewOutput",
+    :view_data_source_name => name + "DataSource"
   }
-  view_input_template = header(view_input_name) + code
-end
-
-def view_output_content(name)
-  view_output_name = name + "ViewOutput"
-
-  code = IO.read(path_for_template("view_output")) % {
-    :view_output_name => view_output_name
-  }
-  view_output_template = header(view_output_name) + code
+  view_protocols_template = header(view_protocols_name) + code
 end
 
 # utils
