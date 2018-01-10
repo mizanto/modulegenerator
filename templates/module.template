@@ -9,7 +9,9 @@ class %{module_name}: Module {
             return %{view_controller_name}()
         }
 
-        super.init(logic: %{logic_name}(), viewProvider: creation)
+        let logicProvider: (Module) -> %{logic_name} = { _ in %{logic_name}() }
+
+        super.init(logicProvider: logicProvider, viewProvider: creation)
     }
 
 }
