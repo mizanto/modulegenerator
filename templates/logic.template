@@ -1,10 +1,11 @@
-
 import Foundation
 
 class %{logic_name}: ViewLogic, ModuleContainer, ViewContainer, %{veiw_output_name} {
 
+    typealias View = %{view_input_name}
+
     var module: %{module_name}!
-    var view: %{view_input_name}!
+    weak var view: %{view_input_name}?
 
     func activate() {
     }

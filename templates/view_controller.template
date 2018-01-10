@@ -1,4 +1,3 @@
-
 import UIKit
 
 class %{view_controller_name}: ViewController, LogicContainer, %{view_input_name}, BindingDelegate {
