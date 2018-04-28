@@ -8,7 +8,7 @@
 4. Файл-шаблон для протоколов (ViewInput, ViewOutput, DataSource).
 
 ## Конфигурация
-В файле ```configuration.rb``` укажите необходимые параметы:<br>
+В файле ```configuration.rb``` укажите необходимые параметры:<br>
 ```PROJECT_NAME``` - название проекта<br> 
 ```AUTHOR``` - ваше имя<br>
 ```COMPANY``` - компания<br>
